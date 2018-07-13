@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @list.title
+%p
+  %b Description:
+  = @list.description
+
+= link_to 'Edit', edit_list_path(@list)
+\|
+= link_to 'Back', lists_path

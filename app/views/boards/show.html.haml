@@ -1,0 +1,64 @@
+:css
+  .row .col-md-3.card {
+    margin:5px;
+  }
+  .row {
+    margin-left: 5px;
+  }
+  #board_lists {
+    overflow-y:auto;
+    flex-wrap:nowrap;
+  }
+
+%p#notice= notice
+= simple_form_for @board do |b|
+  %h4.col-md-1{:style => "width:200px;"}= b.input :title, label:false, class: 'btn-outline-success', input_html: {:style => "width:200px;"}, label_html: {:style => "width:200px;"}
+.row#board_lists
+  - @lists.each do |l|
+    .col-md-3.card.card-body
+      = simple_form_for l do |f|
+        %h5.card-header= f.input :title, label:false, class: 'form-control'
+        -# .input-group-append= f.button :submit, 'Save', class: "btn btn-outline-secondary"
+        %h6.card-title
+        %h6.card-subtitle.mb-2.text-muted= l.description
+        %p.card-text
+          - Card.where(list_id: l.id).each do |c|
+            = link_to(edit_card_path(c.id), class: 'linking-card',  data: {toggle: "modal", target: "#editCardModal"}) do
+              .card
+                .card-body
+                  .card-title= c.title
+                  .card-sub-title= c.description
+                  .card-text text
+      %button.btn.btn-outline-secondary.btn-sm.btn-block{"data-target" => "#newCardModal", "data-toggle" => "modal", :type => "button"}
+        Add Card
+  .col-md-3.card.card-body.no-border
+    =link_to 'Add List', new_list_path, class: 'btn btn-outline-info btn-sm color-info',  data: {toggle: "modal", target: "#addListModal"}
+
+/ Modal
+#newCardModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "newCardModal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5.modal-title Add Card
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      .modal-body
+        - @card = Card.new
+        = render template: 'cards/new'
+
+#editCardModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "editCardModal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-body
+        = render template: 'cards/edit'
+
+#addListModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "addListModal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5.modal-title Add List
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      .modal-body
+        - @list = List.new
+        = render template: 'lists/new'

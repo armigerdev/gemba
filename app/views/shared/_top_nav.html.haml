@@ -1,0 +1,49 @@
+:css
+  .list-item {
+  float:left;
+  cursor:pointer;
+  padding: 5px;
+  }
+%link{:crossorigin => "anonymous", :href => "https://use.fontawesome.com/releases/v5.1.0/css/all.css", :integrity => "sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt", :rel => "stylesheet"}/
+%ul.nav
+  %li.nav-link.dropdown
+    %button#dropdownMenuButton.btn.btn-secondary.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+      %i.fas.fa-box
+      GEMBA
+    .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+      - Board.all.each do |b|
+        =link_to b.title, board_path(b.id), class: 'dropdown-item'
+      .dropdown-divider
+      =link_to 'Add Board', new_board_path, class: 'dropdown-item'
+  %li.nav-item=link_to 'Users', users_path, class: 'nav-link active', style: 'line-height: 31px;'
+  %li.nav-item=link_to 'Boards', boards_path, class: 'nav-link', style: 'line-height: 31px;'
+  %li.nav-item=link_to 'Lists', lists_path, class: 'nav-link', style: 'line-height: 31px;'
+  %li.nav-item=link_to 'Cards', cards_path, class: 'nav-link disabled', style: 'line-height: 31px;'
+
+
+
+
+-# .row
+-#   .col-sm-1.text-center.align-items-left.padding-zero
+-#     .dropdown
+-#       %button#dropdownMenuButton.btn.btn-secondary.btn-sm.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+-#         %i.fas.fa-box
+-#         GEMBA
+-#       .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+-#         - Board.all.each do |b|
+-#           =link_to b.title, board_path(b.id), class: 'dropdown-item'
+-#   .col-md-11.text-left.btn-group
+-#     //{:style => "display:inline;"}
+-#     %h4.list-item.btn-primary.btn-sm Primary
+-#     %h4.list-item.btn-secondary.btn-sm Secondary
+-#     %h4.list-item.btn-success.btn-sm Success
+-#     %h4.list-item.btn-danger.btn-sm Danger
+-#     %h4.list-item.btn-warning.btn-sm Warning
+-#     %h4.list-item.btn-info.btn-sm Info
+-#     %h4.list-item.btn-light.btn-sm Light
+-#     %h4.list-item.btn-dark.btn-sm Dark
+-#     %h4.list-item.btn-link.btn-sm Link
+-#
+-#
+-# :javascript
+-#   $('.dropdown-toggle').dropdown()

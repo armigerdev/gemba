@@ -1,0 +1,27 @@
+%button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+  %span{"aria-hidden" => "true"} ×
+= simple_form_for @card do |f|
+  - if @card.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@card.errors.count, "error")} prohibited this card from being saved:"
+      %ul
+        - @card.errors.full_messages.each do |message|
+          %li= message
+  -# = f.input :list_id, collection: List.all
+  .row
+    .col-md-12
+      = f.input :title, label: false, placeholder: 'Add Title', input_html: { :style => 'width: 100%;' }
+      %br
+      %h6.card-subtitle.mb-2.text-muted in List #{List.all.first.title}
+  .row
+    .col-md-12
+      -# = f.input :list_id, collection: List.all
+      = f.input :earliest_start, as: :date, label: false
+      = f.input :length, label: false
+      = f.input :task_type, label: false
+      = f.input :dependent_on, label: false
+      = f.input :description, as: :text, label: false, placeholder: 'Description', input_html: { width: '100%' }
+      = f.input :assigned_to, label: false
+    .col-md-12.text-right
+      = f.button :submit, 'Reset', class: 'btn btn-secondary'
+      = f.button :submit, 'Save', class: 'btn btn-primary'

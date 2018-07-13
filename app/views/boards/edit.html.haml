@@ -1,0 +1,8 @@
+%h1 Editing board
+- @users = User.all
+= render template: 'users/index'
+= render 'form'
+
+= link_to 'Show', @board
+\|
+= link_to 'Back', boards_path

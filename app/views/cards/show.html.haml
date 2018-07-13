@@ -1,0 +1,28 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @card.title
+%p
+  %b Earliest start:
+  = @card.earliest_start
+%p
+  %b Length:
+  = @card.length
+%p
+  %b Task type:
+  = @card.task_type
+%p
+  %b Dependent on:
+  = @card.dependent_on
+%p
+  %b Description:
+  = @card.description
+%p
+  %b Assigned to:
+  = @card.assigned_to
+
+
+= link_to 'Edit', edit_card_path(@card)
+\|
+= link_to 'Back', cards_path
